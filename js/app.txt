@@ -1,0 +1,44 @@
+// Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDt3C-0-tcbO4Xpd_DQHKy_GeNvmpAlXU8",
+    authDomain: "apps-rentables-61b28.firebaseapp.com",
+    databaseURL: "https://apps-rentables-61b28.firebaseio.com",
+    projectId: "apps-rentables-61b28",
+    storageBucket: "apps-rentables-61b28.appspot.com",
+    messagingSenderId: "439228415580",
+    appId: "1:439228415580:web:f4c175d04b4509f5547099",
+    measurementId: "G-HLXXKJQQL1"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+    firebase.auth.Auth.Persistence.LOCAL; 
+
+    $("#btn-login").click(function(){
+        
+        var email = $("#email").val();
+        var password = $("#password").val(); 
+
+        var result = firebase.auth().signInWithEmailAndPassword(email, password);
+    
+        result.catch(function(error){
+            var errorCode = error.code; 
+            var errorMessage = error.message; 
+
+            console.log(errorCode);
+            console.log(errorMessage);
+        });
+
+    });
+
+    $("#btn-logout").click(function(){
+        firebase.auth().signOut();
+    });
+
+    function switchView(view){
+        $.get({
+            url:view,
+            cache: false,  
+        }).then(function(data){
+            $("#container").html(data);
+        });
+    }
