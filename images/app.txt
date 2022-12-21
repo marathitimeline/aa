@@ -1,0 +1,44 @@
+// Your web app's Firebase configuration
+  var firebaseConfig = {
+      apiKey: "AIzaSyBhqbUsWqIdetDVkFBx6Ov9nf-j3fvQKG0",
+  authDomain: "rahat-indori.firebaseapp.com",
+  databaseURL: "https://rahat-indori-default-rtdb.firebaseio.com",
+  projectId: "rahat-indori",
+  storageBucket: "rahat-indori.appspot.com",
+  messagingSenderId: "716163860430",
+  appId: "1:716163860430:web:72b9b379f509e499b54d9f",
+  measurementId: "G-7KEYWZLJEZ"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+    firebase.auth.Auth.Persistence.LOCAL; 
+
+    $("#btn-login").click(function(){
+        
+        var email = $("#email").val();
+        var password = $("#password").val(); 
+
+        var result = firebase.auth().signInWithEmailAndPassword(email, password);
+    
+        result.catch(function(error){
+            var errorCode = error.code; 
+            var errorMessage = error.message; 
+
+            console.log(errorCode);
+            console.log(errorMessage);
+        });
+
+    });
+
+    $("#btn-logout").click(function(){
+        firebase.auth().signOut();
+    });
+
+    function switchView(view){
+        $.get({
+            url:view,
+            cache: false,  
+        }).then(function(data){
+            $("#container").html(data);
+        });
+    }
